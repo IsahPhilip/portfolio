@@ -27,4 +27,11 @@ if(command==='status'){
  const r=await fetch(`https://api.github.com/repos/${repo}/actions/runs/${process.argv[3]}/logs`,{headers:{Authorization:`Bearer ${secret}`,'User-Agent':'PortfolioBuild'}});
  if(!r.ok){console.error('Log fetch failed',r.status);process.exit(1);}
  const fs=await import('node:fs/promises');await fs.writeFile('artifacts/actions-logs.zip',Buffer.from(await r.arrayBuffer()));console.log('Saved Actions logs for diagnosis.');
+}else if(command==='evidence'){
+ const data=await request(`/actions/runs/${process.argv[3]}/artifacts`);
+ const artifact=data?.artifacts?.find(a=>a.name==='live-verification');
+ if(!artifact){console.error('Live verification artifact is not available yet.');process.exit(1);}
+ const r=await fetch(`https://api.github.com/repos/${repo}/actions/artifacts/${artifact.id}/zip`,{headers:{Authorization:`Bearer ${secret}`,'User-Agent':'PortfolioBuild'}});
+ if(!r.ok){console.error('Evidence download failed',r.status);process.exit(1);}
+ const fs=await import('node:fs/promises');await fs.mkdir('artifacts/qa',{recursive:true});await fs.writeFile(`artifacts/qa/live-${process.argv[3]}.zip`,Buffer.from(await r.arrayBuffer()));console.log('Saved public-site browser evidence.');
 }

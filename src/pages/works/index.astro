@@ -2,6 +2,9 @@
 import Base from '../../layouts/Base.astro';
 import ProjectCard from '../../components/ProjectCard.astro';
 import { getCollection } from 'astro:content';
-const projects = (await getCollection('projects', p=>!p.data.draft)).sort((a,b)=>a.data.order-b.data.order);
+const projects = (await getCollection('projects', p => !p.data.draft)).sort((a,b)=>a.data.order-b.data.order);
 ---
-<Base title="Works — System concepts"><section class="section wrap"><p class="eyebrow">Project collection</p><h1>Connected workflows.</h1><p>Demo case studies. No production results are claimed.</p><div class="project-grid">{projects.map(project=><ProjectCard project={project}/>)}</div></section></Base>
+<Base title="Works — Connected workflows & practical systems" description="Explore demo case studies in lead routing, automated client onboarding, and reporting across business tools. Workflow design, implementation plans, and testing approaches.">
+  <section class="page-intro dark"><div class="wrap"><p class="eyebrow">The work, connected</p><h1>Systems with<br/><span>a clear purpose.</span></h1><div class="intro-bottom"><p>Every workflow starts with a problem worth solving.<br/>Explore the thinking, the connections, and the details.</p><span class="outlined-label">{String(projects.length).padStart(2,'0')} case studies</span></div></div></section>
+  <section class="section wrap"><div class="work-index-head"><h2>Project collection</h2><span>Automation / Integration / AI</span></div><div class="project-grid">{projects.map(project => <ProjectCard project={project}/>)}</div><p class="demo-note">All projects shown are clearly labeled demonstrations. They illustrate proposed architectures and test plans, rather than paid client work or measured business results.</p></section>
+</Base>
