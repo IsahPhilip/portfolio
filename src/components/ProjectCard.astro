@@ -1,0 +1,15 @@
+---
+import { link } from '../config';
+import { Image } from 'astro:assets';
+import type { CollectionEntry } from 'astro:content';
+interface Props { project: CollectionEntry<'projects'> }
+const { project } = Astro.props;
+const p = project.data;
+---
+<article class="project-card">
+  <a class="project-cover" href={link(`/works/${project.id}/`)} tabindex="-1" aria-hidden="true"><Image src={p.cover} alt="" widths={[400,700,1100]} sizes="(max-width: 760px) 100vw, 50vw" format="webp"/></a>
+  <div class="card-meta"><span>{p.category}</span>{p.demo && <span class="demo-label">Demo case study</span>}</div>
+  <h2><a href={link(`/works/${project.id}/`)}>{p.title}</a></h2>
+  <p>{p.problem}</p><p class="system-type">{p.system}</p>
+  <a class="text-link" href={link(`/works/${project.id}/`)} aria-label={`Read case study: ${p.shortTitle}`}>Read case study <span class="link-plus" aria-hidden="true">+</span></a>
+</article>

@@ -1,0 +1,5 @@
+---
+import { services } from '../config';
+import Icon from './Icon.astro';
+---
+<div class="services-grid">{services.map(service => <article class="service-card"><Icon name={service.icon}/><h3>{service.title}</h3><p>{service.text}</p><span class="service-tags">{service.tags}</span></article>)}</div>

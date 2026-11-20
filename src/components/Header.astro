@@ -1,0 +1,33 @@
+---
+import { link } from '../config';
+import { site, contactHref } from '../config';
+const path = Astro.url.pathname.replace(site.base, "") || "/";
+---
+<header class="site-header">
+  <div class="header-inner wrap">
+    <a href={link('/')} class="brand" aria-label={`${site.name} — Home`}><span class="brand-mark" aria-hidden="true">i<span>p</span><i></i></span><span>{site.name}<small>Automation & Integration</small></span></a>
+    <button class="menu-toggle" aria-expanded="false" aria-controls="primary-nav" hidden><span>Menu</span><span class="menu-lines" aria-hidden="true"></span></button>
+    <nav id="primary-nav" aria-label="Main navigation">
+      <a href={link('/')} aria-current={path === '/' ? 'page' : undefined}>Home</a>
+      <a href={link('/works/')} aria-current={path.startsWith('/works') ? 'page' : undefined}>Works</a>
+      <a href={link('/about/')} aria-current={path === '/about/' ? 'page' : undefined}>About</a>
+      <a class="nav-contact" href={contactHref}>Let’s talk <span aria-hidden="true">+</span></a>
+    </nav>
+  </div>
+</header>
+<script>
+  const toggle = document.querySelector<HTMLButtonElement>('.menu-toggle');
+  const nav = document.querySelector<HTMLElement>('#primary-nav');
+  if (toggle && nav) {
+    toggle.hidden = false;
+    const close = () => { toggle.setAttribute('aria-expanded', 'false'); nav.classList.remove('is-open'); };
+    toggle.addEventListener('click', () => {
+      const open = toggle.getAttribute('aria-expanded') !== 'true';
+      toggle.setAttribute('aria-expanded', String(open)); nav.classList.toggle('is-open', open);
+    });
+    document.addEventListener('keydown', (event) => { if (event.key === 'Escape' && toggle.getAttribute('aria-expanded') === 'true') { close(); toggle.focus(); } });
+    nav.addEventListener('click', (event) => { if ((event.target as Element).closest('a')) close(); });
+    document.addEventListener('click', (event) => { if (!(event.target as Element).closest('.site-header')) close(); });
+    matchMedia('(min-width: 761px)').addEventListener('change', close);
+  }
+</script>

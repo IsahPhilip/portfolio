@@ -1,0 +1,13 @@
+node_modules/
+dist/
+.astro/
+playwright-report/
+test-results/
+.env
+
+.milestone-staging/
+artifacts/reference-*.png
+artifacts/reference-inspection.json
+artifacts/qa/
+artifacts/actions-logs.zip
+

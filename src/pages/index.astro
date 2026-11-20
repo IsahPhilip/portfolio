@@ -1,0 +1,18 @@
+---
+import { link } from '../config';
+import Base from '../layouts/Base.astro';
+import Network from '../components/Network.astro';
+import Services from '../components/Services.astro';
+import ProjectSelector from '../components/ProjectSelector.astro';
+import { site, contactHref } from '../config';
+---
+<Base title="AI Automation & Systems Integration Engineer">
+  <section class="hero dark">
+    <div class="wrap hero-grid"><div class="hero-copy"><p class="eyebrow"><span class="teal-rule"></span>{site.role}</p><h1>Connect your tools.<br/><span>Simplify your<br class="desktop-break"/> workflows.</span></h1><p class="hero-description">Less manual work. Fewer disconnected systems.<br class="desktop-break"/> Thoughtful automation that keeps your business moving.</p><div class="hero-actions"><a class="button button-teal" href={contactHref}>Let’s build something</a><a class="quiet-link" href="#selected-work">Explore my work <span aria-hidden="true">+</span></a></div><p class="hero-signoff">Designed for people. Built to work.</p></div><Network/></div>
+    <div class="hero-bottom wrap"><span>From scattered tools to connected systems.</span><div><span>Strategy</span><b aria-hidden="true">/</b><span>Automation</span><b aria-hidden="true">/</b><span>Integration</span></div></div>
+  </section>
+  <section class="section wrap services-section"><div class="section-heading"><div><p class="eyebrow">What I do</p><h2>Make the work flow.</h2></div><p>Practical systems for the tasks that<br class="desktop-break"/> shouldn’t take up your day.</p></div><Services/></section>
+  <section class="section work-section" id="selected-work"><div class="wrap"><div class="section-heading"><div><p class="eyebrow">Selected systems</p><h2>Less friction.<br/><span class="muted">More possibility.</span></h2></div><div><p>A closer look at how connected workflows<br class="desktop-break"/> solve everyday operational problems.</p><a class="text-link" href={link('/works/')}>View all work <span class="link-plus" aria-hidden="true">+</span></a></div></div><ProjectSelector/><p class="demo-note">These are demonstration projects, developed to explain the approach. No client outcomes or performance metrics are claimed.</p></div></section>
+  <section class="section wrap home-about"><div><p class="eyebrow">The person behind the systems</p><div class="about-emblem" aria-hidden="true"><span>IP</span><i></i><i></i></div></div><div><h2>A systems thinker.<br/><span class="muted">A people-first approach.</span></h2><p>I’m {site.name}, an {site.role}. I care about what happens between the tools: the copy-paste, the missed follow-up, the spreadsheet that holds everything together.</p><p>My focus is on making those connections simpler, so people can spend more time on the work that matters.</p><a class="text-link" href={link('/about/')}>A little more about me <span class="link-plus" aria-hidden="true">+</span></a></div></section>
+  <section class="approach-strip"><div class="wrap"><p class="eyebrow">A considered process</p><div><span>Understand the workflow</span><i aria-hidden="true"></i><span>Connect the right tools</span><i aria-hidden="true"></i><span>Test the real scenarios</span><i aria-hidden="true"></i><span>Hand over with clarity</span></div></div></section>
+</Base>

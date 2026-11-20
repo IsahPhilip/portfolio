@@ -1,0 +1,27 @@
+---
+interface Props { headings: { depth: number; slug: string; text: string }[] }
+const headings = Astro.props.headings.filter(h=>h.depth===2);
+---
+<aside class="toc" aria-label="Case study contents">
+  <details open><summary>In this case study<span class="toc-chevron" aria-hidden="true"></span></summary><nav aria-label="Table of contents"><ol>{headings.map(h=><li><a href={`#${h.slug}`} data-toc-link>{h.text}</a></li>)}</ol></nav></details>
+</aside>
+<script>
+  const toc = document.querySelector<HTMLElement>('.toc');
+  const details = toc?.querySelector('details');
+  if (toc && details) {
+    const media = matchMedia('(min-width: 1000px)');
+    const resize = () => { details.open = media.matches; };
+    resize(); media.addEventListener('change', resize);
+    const links = [...toc.querySelectorAll<HTMLAnchorElement>('[data-toc-link]')];
+    const headings = links.map(link => document.getElementById(decodeURIComponent(link.hash.slice(1)))).filter((h): h is HTMLElement => !!h);
+    const update = () => {
+      let current = headings[0];
+      headings.forEach(h => { if (h.getBoundingClientRect().top <= 190) current = h; });
+      links.forEach(link => { if (link.hash === `#${current?.id}`) link.setAttribute('aria-current', 'location'); else link.removeAttribute('aria-current'); });
+    };
+    let ticking = false;
+    window.addEventListener('scroll', () => { if (!ticking) { ticking=true; requestAnimationFrame(()=>{ update(); ticking=false; }); } }, {passive:true});
+    window.addEventListener('hashchange', update); window.addEventListener('load', update); update();
+    links.forEach(link=>link.addEventListener('click',()=>{ if (!media.matches) details.open=false; }));
+  }
+</script>

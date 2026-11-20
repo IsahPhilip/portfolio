@@ -1,0 +1,7 @@
+---
+import Base from '../../layouts/Base.astro';
+import ProjectCard from '../../components/ProjectCard.astro';
+import { getCollection } from 'astro:content';
+const projects = (await getCollection('projects', p=>!p.data.draft)).sort((a,b)=>a.data.order-b.data.order);
+---
+<Base title="Works — System concepts"><section class="section wrap"><p class="eyebrow">Project collection</p><h1>Connected workflows.</h1><p>Demo case studies. No production results are claimed.</p><div class="project-grid">{projects.map(project=><ProjectCard project={project}/>)}</div></section></Base>

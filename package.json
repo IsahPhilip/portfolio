@@ -1,0 +1,25 @@
+{
+  "name": "philip-systems-portfolio",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "node scripts/astro.mjs dev --host 127.0.0.1",
+    "build": "node scripts/build.mjs",
+    "preview": "node scripts/astro.mjs preview --host 127.0.0.1",
+    "test": "playwright test"
+  },
+  "dependencies": {
+    "@astrojs/sitemap": "^3.7.6",
+    "@fontsource-variable/dm-sans": "^5.2.8",
+    "@fontsource-variable/manrope": "^5.2.8",
+    "astro": "^7.4.13",
+    "sharp": "^0.35.5"
+  },
+  "devDependencies": {
+    "@astrojs/check": "^0.9.12",
+    "@axe-core/playwright": "^4.11.0",
+    "@playwright/test": "^1.56.1",
+    "typescript": "^5.9.3"
+  }
+}
