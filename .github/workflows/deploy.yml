@@ -51,3 +51,30 @@ jobs:
       - name: Deploy verified static output
         id: deployment
         uses: actions/deploy-pages@v4
+  live-smoke:
+    if: github.event_name != 'pull_request'
+    needs: deploy
+    runs-on: ubuntu-latest
+    env:
+      PLAYWRIGHT_BASE_URL: https://isahphilip.github.io/portfolio/
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+      - run: npm ci
+      - run: npx playwright install --with-deps chromium
+      - name: Verify the public site in a real browser
+        run: npm test
+      - name: Capture the public pages at all requested sizes
+        run: node scripts/capture.mjs https://isahphilip.github.io/portfolio/ live
+      - name: Upload live verification evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: live-verification
+          path: |
+            playwright-report/
+            artifacts/qa/
+          retention-days: 14

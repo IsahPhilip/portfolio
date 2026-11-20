@@ -3,7 +3,7 @@ import fs from 'node:fs/promises';
 const base=process.argv[2] || 'http://127.0.0.1:4321/portfolio/';
 const milestone=process.argv[3] || 'local';
 await fs.mkdir('artifacts/qa',{recursive:true});
-const browser=await chromium.launch({channel:'chrome',headless:true});
+const browser=await chromium.launch({channel:process.env.CI ? undefined : 'chrome',headless:true});
 const results=[];
 for(const width of [390,768,1440]){
  const page=await browser.newPage({viewport:{width,height:1000}});
