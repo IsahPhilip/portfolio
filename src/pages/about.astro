@@ -2,10 +2,15 @@
 import Base from '../layouts/Base.astro';
 import Services from '../components/Services.astro';
 import Network from '../components/Network.astro';
-import { site, contactHref } from '../config';
+import { Image } from 'astro:assets';
+import { existsSync, statSync } from 'node:fs';
+import { resolve } from 'node:path';
+import { site, contactHref, link } from '../config';
+const resumeFile = resolve('public', `.${site.resume}`);
+const hasResume = site.resume.startsWith('/') && existsSync(resumeFile) && statSync(resumeFile).isFile();
 ---
-<Base title="About — Isah Philip" description="Meet Isah Philip, an AI Automation & Systems Integration Engineer focused on useful workflows, reliable integrations, and clear handovers.">
-  <section class="about-hero dark"><div class="wrap about-hero-grid"><div><p class="eyebrow">Hello, I’m {site.name}</p><h1>I see the work<br/><span>between the tools.</span></h1><p>{site.bio}</p><a class="button button-teal" href={contactHref}>Let’s talk about your workflow</a>{site.resume && <a class="quiet-link" href={site.resume} download>Download résumé</a>}</div><div class="about-graphic">{site.portrait ? <img src={site.portrait} alt={site.name} width="500" height="500"/> : <><div class="profile-initials" aria-hidden="true">IP<span>Connected by design.</span></div><Network compact/></>}</div></div></section>
+<Base title={`About — ${site.name}`} description={`Meet ${site.name}, an ${site.role} focused on useful workflows, reliable integrations, and clear handovers.`}>
+  <section class="about-hero dark"><div class="wrap about-hero-grid"><div><p class="eyebrow">Hello, I’m {site.name}</p><h1>I see the work<br/><span>between the tools.</span></h1><p>{site.bio}</p><a class="button button-teal" href={contactHref}>Let’s talk about your workflow</a>{hasResume && <a class="quiet-link" href={link(site.resume)} download>Download résumé</a>}</div><div class="about-graphic">{site.portrait ? <Image src={site.portrait} alt={site.name} widths={[400,700,1000]} sizes="(max-width: 760px) 100vw, 40vw" format="webp"/> : <><div class="profile-initials" aria-hidden="true">{site.initials}<span>Connected by design.</span></div><Network compact/></>}</div></div></section>
   <section class="section wrap about-principles"><p class="eyebrow">How I think</p><div><h2>Start with the people.<br/><span class="muted">Then design the system.</span></h2><p>A useful automation needs more than a working happy path. It needs clear ownership, sensible defaults, and a way to recover when something goes wrong.</p><div class="principles-grid"><article><h3>Clarity over complexity</h3><p>Use the simplest system that solves the actual problem. Make every connection understandable.</p></article><article><h3>Reliability by design</h3><p>Plan for duplicate events, unavailable APIs, and the exceptions that need a human decision.</p></article><article><h3>Easy to own</h3><p>Document the workflow, surface failures, and give the next person a clear way to maintain it.</p></article></div></div></section>
   <section class="section work-section"><div class="wrap"><div class="section-heading"><div><p class="eyebrow">Services</p><h2>Where I can help.</h2></div><p>From understanding a manual process<br/>to designing a connected workflow.</p></div><Services/></div></section>
   <section class="section wrap tools-section"><div><p class="eyebrow">The toolkit</p><h2>The right tools.<br/><span class="muted">For the right job.</span></h2><p>A practical mix for the systems explored in this portfolio. The workflow determines the stack.</p></div><div class="tools-grid">{site.tools.map(tool=><span>{tool}</span>)}</div></section>

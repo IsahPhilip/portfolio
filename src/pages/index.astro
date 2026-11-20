@@ -5,10 +5,11 @@ import Network from '../components/Network.astro';
 import Services from '../components/Services.astro';
 import ProjectSelector from '../components/ProjectSelector.astro';
 import { site, contactHref } from '../config';
+const [headlineLead, headlineRest] = site.headline.split('. ');
 ---
 <Base title="AI Automation & Systems Integration Engineer">
   <section class="hero dark">
-    <div class="wrap hero-grid"><div class="hero-copy"><p class="eyebrow"><span class="teal-rule"></span>{site.role}</p><h1>Connect your tools.<br/><span>Simplify your<br class="desktop-break"/> workflows.</span></h1><p class="hero-description">Less manual work. Fewer disconnected systems.<br class="desktop-break"/> Thoughtful automation that keeps your business moving.</p><div class="hero-actions"><a class="button button-teal" href={contactHref}>Let’s build something</a><a class="quiet-link" href="#selected-work">Explore my work <span aria-hidden="true">+</span></a></div><p class="hero-signoff">Designed for people. Built to work.</p></div><Network/></div>
+    <div class="wrap hero-grid"><div class="hero-copy"><p class="eyebrow"><span class="teal-rule"></span>{site.role}</p><h1>{headlineLead}.<br/><span>{headlineRest}</span></h1><p class="hero-description">Less manual work. Fewer disconnected systems.<br class="desktop-break"/> Thoughtful automation that keeps your business moving.</p><div class="hero-actions"><a class="button button-teal" href={contactHref}>Let’s build something</a><a class="quiet-link" href="#selected-work">Explore my work <span aria-hidden="true">+</span></a></div><p class="hero-signoff">Designed for people. Built to work.</p></div><Network/></div>
     <div class="hero-bottom wrap"><span>From scattered tools to connected systems.</span><div><span>Strategy</span><b aria-hidden="true">/</b><span>Automation</span><b aria-hidden="true">/</b><span>Integration</span></div></div>
   </section>
   <section class="section wrap services-section"><div class="section-heading"><div><p class="eyebrow">What I do</p><h2>Make the work flow.</h2></div><p>Practical systems for the tasks that<br class="desktop-break"/> shouldn’t take up your day.</p></div><Services/></section>

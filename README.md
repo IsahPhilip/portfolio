@@ -39,14 +39,16 @@ Use these level-two headings for a case study: The problem, Existing workflow, S
 
 All three projects are clearly labeled demonstrations with synthetic data, proposed implementation steps, and acceptance-test plans. Replace them with verified work before presenting them as client engagements. No outcomes, metrics, or testimonials are claimed.
 
-The biography and service descriptions are original draft copy for review. No personal photography or résumé was supplied. The initials graphic is intentional. A résumé link appears only after a real file is placed in `public/` and configured in `src/config.ts`.
+The biography and service descriptions are original draft copy for review. No personal photography or résumé was supplied. The initials graphic is intentional. Import a real photo from `src/assets/` in `src/config.ts` and assign the imported image to `portrait` to replace it; the photo will use Astro image optimization. A résumé link appears only after a real file is placed in `public/`, configured in `src/config.ts`, and verified to exist at build time.
 
 Original cover source SVGs and exported PNGs are in `src/assets/`. Run `node scripts/create-covers.mjs` to regenerate them and the social image. Replace the covers with actual screenshots when available, update `coverAlt`, and preserve meaningful alternative text.
 
 ## Static deployment
 
-GitHub Pages is configured to deploy from Actions. `.github/workflows/deploy.yml` installs from the lockfile, checks TypeScript, builds static HTML to `dist/`, runs Playwright at 390px, 768px, and 1440px, and deploys that same verified output. Pull requests run verification without deployment. A push to `main` deploys after verification succeeds. No third-party deployment token is required; GitHub uses its short-lived workflow identity.
+GitHub Pages is configured to deploy from Actions. `.github/workflows/deploy.yml` installs from the lockfile, checks TypeScript, builds static HTML to `dist/`, runs Playwright at 390px, 768px, and 1440px, and deploys that same verified output. A second browser job opens the public Pages URL, reruns the tests, checks that the public build revision equals the deployed commit, and captures screenshots. Pull requests run verification without deployment. A push to `main` deploys after verification succeeds. No third-party deployment token is required; GitHub uses its short-lived workflow identity.
 
 For a different host, upload `dist/` after `npm run build`, configure the custom 404 as `404.html`, and set `site.url` and `site.base` in `src/config.ts`. For a root-domain deployment use an empty base. Keep trailing slash routing enabled. No runtime server, environment secrets, or database is required.
 
 Reference inspection notes are in `docs/reference-review.md`. Playwright reports are written to `playwright-report/` and retained as CI artifacts.
+
+The tests cover navigation, keyboard focus, the mobile menu, all project previews, Markdown routes, direct section links, the active contents rail, mobile disclosure, reduced motion, JavaScript-disabled access, contact destinations, 404 recovery, image loading, metadata, sitemap entries, overflow, and automated WCAG A/AA checks. Automated accessibility checks complement keyboard and visual review; they do not replace a full assistive-technology audit.

@@ -10,7 +10,7 @@ const headings = Astro.props.headings.filter(h=>h.depth===2);
   const details = toc?.querySelector('details');
   if (toc && details) {
     const media = matchMedia('(min-width: 1000px)');
-    const resize = () => { details.open = media.matches; };
+    const resize = () => { details.open = media.matches; details.querySelector('summary')?.setAttribute('tabindex', media.matches ? '-1' : '0'); };
     resize(); media.addEventListener('change', resize);
     const links = [...toc.querySelectorAll<HTMLAnchorElement>('[data-toc-link]')];
     const headings = links.map(link => document.getElementById(decodeURIComponent(link.hash.slice(1)))).filter((h): h is HTMLElement => !!h);

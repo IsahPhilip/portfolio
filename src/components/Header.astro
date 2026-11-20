@@ -5,7 +5,7 @@ const path = Astro.url.pathname.replace(site.base, "") || "/";
 ---
 <header class="site-header">
   <div class="header-inner wrap">
-    <a href={link('/')} class="brand" aria-label={`${site.name} — Home`}><span class="brand-mark" aria-hidden="true">i<span>p</span><i></i></span><span>{site.name}<small>Automation & Integration</small></span></a>
+    <a href={link('/')} class="brand"><span class="brand-mark" aria-hidden="true">i<span>p</span><i></i></span><span>{site.name}<small>Automation & Integration</small></span></a>
     <button class="menu-toggle" aria-expanded="false" aria-controls="primary-nav" hidden><span>Menu</span><span class="menu-lines" aria-hidden="true"></span></button>
     <nav id="primary-nav" aria-label="Main navigation">
       <a href={link('/')} aria-current={path === '/' ? 'page' : undefined}>Home</a>
